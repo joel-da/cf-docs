@@ -93,6 +93,7 @@ class ReleaseNoteTarget:
     release_dir: Path
     page_ref: str
     release_page_root: str
+    index_title: str | None = None
 
 
 PACKAGE_RELEASE_REPO = "hyperledger-labs/splice-wallet-kernel"
@@ -126,6 +127,7 @@ WALLET_RELEASE_TARGETS = {
     "dapp-sdk": ReleaseNoteTarget(
         key="dapp-sdk",
         title="dApp SDK",
+        index_title="Release Notes",
         description="Release notes for the Canton Network dApp SDK",
         source_description="`@canton-network/dapp-sdk` GitHub releases",
         source_url=f"https://github.com/{PACKAGE_RELEASE_REPO}/releases?q=dapp-sdk",
@@ -295,7 +297,7 @@ def release_index_page(target: ReleaseNoteTarget, sections: Sequence[ReleaseNote
     latest = sections[0]
     frontmatter = (
         "---\n"
-        f'title: "{target.title}"\n'
+        f'title: "{target.index_title or target.title}"\n'
         f'description: "{target.description}"\n'
         "---"
     )
